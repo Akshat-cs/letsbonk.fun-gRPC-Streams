@@ -1,24 +1,24 @@
-# Pump.fun gRPC Streams
+# LetsBonk.fun gRPC Streams
 
-Real-time streaming of Pump.fun DEX trades, orders, and transactions via CoreCast gRPC API.
+Real-time streaming of LetsBonk.fun DEX trades, orders, and transactions via CoreCast gRPC API.
 
 ## Repository
 
-🔗 [**GitHub Repository**](https://github.com/Akshat-cs/pump.fun-gRPC-Streams.git)
+🔗 [**GitHub Repository**](https://github.com/Akshat-cs/letsbonk.fun-gRPC-Streams.git)
 
 Clone and get started:
 
 ```bash
-git clone https://github.com/Akshat-cs/pump.fun-gRPC-Streams.git
+git clone https://github.com/Akshat-cs/letsbonk.fun-gRPC-Streams.git
 ```
 
 ## Introduction
 
-This Node.js client allows you to stream real-time trading data from Pump.fun (Solana's popular memecoin launchpad) using the CoreCast gRPC API. Monitor track buying/selling pressure, detect whale activity, and analyze trading patterns in real-time.
+This Node.js client allows you to stream real-time trading data from LetsBonk.fun (Solana's memecoin launchpad built on Raydium LaunchLab) using the CoreCast gRPC API. Monitor token launches, track buying/selling pressure, detect whale activity, and analyze trading patterns in real-time.
 
 **Key Features:**
 
-- 🚀 Real-time trade streaming from Pump.fun
+- 🚀 Real-time trade streaming from LetsBonk.fun
 - 🎯 Flexible filtering by tokens, traders, and trade direction
 - 💰 Separate buy and sell trade monitoring
 - 📊 Performance metrics and statistics
@@ -31,31 +31,23 @@ This Node.js client allows you to stream real-time trading data from Pump.fun (S
 # 1. Install dependencies
 npm install
 
-# 2. Configure your filters in config.yaml
-# Edit the file to set your desired token and trade filter
+# 2. Get your API token
+# Visit: https://account.bitquery.io/user/api_v2/access_tokens
 
-# 3. Run the client
+# 3. Configure your filters in config.yaml
+# Edit the file to set your auth token and desired filters
+
+# 4. Run the client
 node index.js
 ```
 
-## Stream Types
+## What is LetsBonk.fun?
 
-The client supports multiple stream types:
-
-| Stream Type    | Description                             |
-| -------------- | --------------------------------------- |
-| `dex_trades`   | Real-time trade events (default)        |
-| `dex_orders`   | Order placement and cancellation events |
-| `dex_pools`    | Pool liquidity change events            |
-| `transactions` | General transaction stream              |
-| `transfers`    | Token transfer events                   |
-| `balances`     | Balance update events                   |
-
-For Pump.fun monitoring, use **`dex_trades`** (default).
+LetsBonk.fun tokens are created and traded on **Raydium LaunchLab** (Program: `LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj`).
 
 ## Trade Data Structure
 
-When you stream Pump.fun trades, each message contains:
+When you stream LetsBonk.fun trades, each message contains:
 
 ### Trade Event Structure
 
@@ -70,59 +62,46 @@ When you stream Pump.fun trades, each message contains:
     Status: {
       Success: true,
       ErrorMessage: null
-    },
-    Header: {
-      Fee: 5000,
-      FeePayer: "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
-      Signer: "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
-      Accounts: [...]
     }
   },
   Trade: {
     InstructionIndex: 2,
     Dex: {
-      ProgramAddress: "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
-      ProtocolName: "pump_fun",
-      ProtocolFamily: "pump_fun"
+      ProgramAddress: "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj",
+      ProtocolName: "raydium_launchpad",
+      ProtocolFamily: "raydium"
     },
     Market: {
       MarketAddress: "YcQB1hGSR9hNbJ52zrCJyMvbRViQKiaLfenrgZR9BXY",
       BaseCurrency: {
-        Symbol: "PUMPTOKEN",
-        Name: "Pump Token",
-        MintAddress: "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump",
+        Symbol: "BONKTOKEN",
+        Name: "Bonk Token",
+        MintAddress: "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk",
         Decimals: 6
       },
       QuoteCurrency: {
         Symbol: "SOL",
-        Name: "Wrapped SOL",
         MintAddress: "So11111111111111111111111111111111111111112",
         Decimals: 9
       }
     },
     Buy: {
-      Amount: 100000000,  // Amount of token being bought
+      Amount: 100000000,
       Currency: {
-        Symbol: "PUMPTOKEN",
-        Name: "Pump Token",
-        MintAddress: "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump",
-        Decimals: 6,
-        Parsed: true
+        Symbol: "BONKTOKEN",
+        MintAddress: "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk",
+        Decimals: 6
       },
       Account: {
         Address: "8HqR8D9gHtN1eMJyaX7BN5PmzF5z9KgQzY4nXvFfRD8m",
         IsSigner: true,
         IsWritable: true
-      },
-      Order: {
-        OrderId: null
       }
     },
     Sell: {
-      Amount: 500000000,  // Amount of SOL being sold
+      Amount: 500000000,
       Currency: {
         Symbol: "SOL",
-        Name: "Wrapped SOL",
         MintAddress: "So11111111111111111111111111111111111111112",
         Decimals: 9
       },
@@ -130,40 +109,25 @@ When you stream Pump.fun trades, each message contains:
         Address: "8HqR8D9gHtN1eMJyaX7BN5PmzF5z9KgQzY4nXvFfRD8m",
         IsSigner: true,
         IsWritable: true
-      },
-      Order: {
-        OrderId: null
       }
     },
     Fee: 0,
-    Royalty: 0,
-    Instruction: {
-      Index: 2,
-      Depth: 0,
-      Program: {
-        Address: "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
-        Name: "pump_fun",
-        Method: "swap",
-        Parsed: true
-      },
-      Accounts: [...],
-      Logs: [...]
-    }
+    Royalty: 0
   }
 }
 ```
 
-### Key Fields Explained
+### Key Fields
 
-| Field                            | Description                                                       |
-| -------------------------------- | ----------------------------------------------------------------- |
-| `Trade.Buy.Amount`               | Amount of token being bought (in base units)                      |
-| `Trade.Sell.Amount`              | Amount of SOL being sold (in lamports)                            |
-| `Trade.Buy.Currency.MintAddress` | Token mint address                                                |
-| `Trade.Buy.Account.Address`      | Buyer's wallet address                                            |
-| `Trade.Dex.ProgramAddress`       | Always `6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P` for Pump.fun |
-| `Trade.Market.MarketAddress`     | Unique market/pool address for the token                          |
-| `Block.Slot`                     | Solana block slot for timing analysis                             |
+| Field                            | Description                       |
+| -------------------------------- | --------------------------------- |
+| `Trade.Buy.Amount`               | Amount of token being bought      |
+| `Trade.Sell.Amount`              | Amount of token being sold        |
+| `Trade.Buy.Currency.MintAddress` | Token mint address                |
+| `Trade.Buy.Account.Address`      | Buyer's wallet address            |
+| `Trade.Dex.ProgramAddress`       | Raydium LaunchLab program address |
+| `Trade.Market.MarketAddress`     | Market/pool address for the token |
+| `Block.Slot`                     | Solana block slot for timing      |
 
 ## Configuration Options
 
@@ -183,41 +147,32 @@ trade_filter: "alltrades" # or "buys" or "sells"
 
 ### Available Filters
 
-Server-side filters (applied by CoreCast API):
-
-| Filter     | Description                            | Example                                                 |
-| ---------- | -------------------------------------- | ------------------------------------------------------- |
-| `programs` | Filter by DEX program address          | Pump.fun: `6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P` |
-| `tokens`   | Filter by token mint address(es)       | Your token mint address                                 |
-| `pool`     | Filter by specific market/pool address | Specific Pump.fun market                                |
-| `traders`  | Filter by wallet address(es)           | Specific trader wallets                                 |
-
-Client-side filter (applied by this client):
-
-| Filter         | Description                                      |
-| -------------- | ------------------------------------------------ |
-| `trade_filter` | Filter by trade direction (buys/sells/alltrades) |
+| Filter     | Description                      | Example                                       |
+| ---------- | -------------------------------- | --------------------------------------------- |
+| `programs` | Filter by DEX program address    | `LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj` |
+| `tokens`   | Filter by token mint address(es) | Your token mint address                       |
+| `traders`  | Filter by wallet address(es)     | Specific trader wallets                       |
 
 ## Filter Examples
 
-### 1. Monitor ALL Trades for a Specific Token
+### 1. Monitor ALL trades for a specific token on LetsBonk.fun
 
-Track all trading activity (both buys and sells) for a specific token on Pump.fun.
+Track all trading activity (both buys and sells) for a specific token.
 
 ```yaml
 trade_filter: "alltrades"
 filters:
   programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    - "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"
   tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
+    - "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk"
 ```
 
 **Use Case**: General market monitoring, volume analysis
 
 ---
 
-### 2. Monitor Only BUYS for a Specific Token
+### 2. Monitor only BUYS for a specific token on LetsBonk.fun
 
 Track buying pressure - see when traders are accumulating the token.
 
@@ -225,16 +180,16 @@ Track buying pressure - see when traders are accumulating the token.
 trade_filter: "buys"
 filters:
   programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    - "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"
   tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
+    - "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk"
 ```
 
 **Use Case**: Track accumulation patterns, detect buying momentum
 
 ---
 
-### 3. Monitor Only SELLS for a Specific Token
+### 3. Monitor only SELLS for a specific token on LetsBonk.fun
 
 Track selling pressure - detect when traders are dumping the token.
 
@@ -242,70 +197,34 @@ Track selling pressure - detect when traders are dumping the token.
 trade_filter: "sells"
 filters:
   programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    - "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"
   tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
+    - "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk"
 ```
 
 **Use Case**: Detect sell pressure, identify dumps, risk monitoring
 
 ---
 
-### 4. Monitor Multiple Tokens
+### 4. Monitor multiple tokens on LetsBonk.fun
 
-Track trading activity across multiple Pump.fun tokens simultaneously.
+Track trading activity across multiple tokens simultaneously.
 
 ```yaml
 trade_filter: "alltrades"
 filters:
   programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    - "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"
   tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
-    - "H15fwzsYWQiGTQBn23sC2QuByu9zSvaXhaDwwVmkX5m9"
-    - "AnotherTokenMintAddressHere"
+    - "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk"
+    - "4FBx5RBfEuuhkT5RB7kJ46WC6cL9J4SJNXyKeoDAbonk"
 ```
 
 **Use Case**: Portfolio tracking, multi-token analysis
 
 ---
 
-### 5. Monitor ALL Pump.fun Activity
-
-Stream all trades on Pump.fun (no token filter) - useful for market-wide analysis.
-
-```yaml
-trade_filter: "alltrades"
-filters:
-  programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
-  # No tokens filter = all tokens
-```
-
-**Use Case**: Market-wide analytics, new token discovery, volume tracking
-
-**⚠️ Warning**: This will stream a high volume of messages. Ensure your system can handle the load.
-
----
-
-### 6. Monitor Specific Trader Activity
-
-Track all trades made by a specific wallet on Pump.fun.
-
-```yaml
-trade_filter: "alltrades"
-filters:
-  programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
-  traders:
-    - "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr"
-```
-
-**Use Case**: Whale watching, copytrading, smart money tracking
-
----
-
-### 7. Monitor Specific Trader's Token Buys
+### 5. Monitor buying activity for a specific trader
 
 Track when a specific wallet buys a specific token.
 
@@ -313,67 +232,14 @@ Track when a specific wallet buys a specific token.
 trade_filter: "buys"
 filters:
   programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    - "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"
   tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
+    - "CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk"
   traders:
-    - "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr"
+    - "YourWalletAddressHere"
 ```
 
 **Use Case**: Copy-trading specific whales, alpha signal detection
-
----
-
-### 8. Monitor Multiple Traders
-
-Track activity from multiple wallets (whale watching).
-
-```yaml
-trade_filter: "alltrades"
-filters:
-  programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
-  traders:
-    - "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr"
-    - "8HqR8D9gHtN1eMJyaX7BN5PmzF5z9KgQzY4nXvFfRD8m"
-    - "9iJkLmNoPQrsTUVxYZaBcDeFgH1JkLmNoPQrsTUVxYZ"
-```
-
-**Use Case**: Monitor multiple known profitable traders
-
----
-
-### 9. Monitor Specific Market/Pool
-
-Track all activity in a specific Pump.fun market.
-
-```yaml
-trade_filter: "alltrades"
-filters:
-  pool:
-    - "YcQB1hGSR9hNbJ52zrCJyMvbRViQKiaLfenrgZR9BXY"
-```
-
-**Use Case**: Deep dive into a specific token's liquidity pool
-
----
-
-### 10. Detect Large Buys (Whale Accumulation)
-
-Monitor buy trades and filter large amounts in your application logic.
-
-```yaml
-trade_filter: "buys"
-filters:
-  programs:
-    - "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
-  tokens:
-    - "7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump"
-```
-
-Then in your code, filter by `Trade.Buy.Amount` or `Trade.Sell.Amount` (SOL value).
-
-**Use Case**: Whale buy alerts, large transaction monitoring
 
 ## Output Example
 
@@ -388,23 +254,22 @@ Timestamp: 2025-10-01T13:11:32.922Z
 Instruction Index: 2
 
 📍 DEX Info:
-  Program: 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P
-  Protocol: pump_fun (pump_fun)
+  Program: LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj
+  Protocol: raydium_launchpad (raydium)
 
 🏪 Market Info:
   Address: YcQB1hGSR9hNbJ52zrCJyMvbRViQKiaLfenrgZR9BXY
-  Base Currency: PUMPTOKEN
+  Base Currency: BONKTOKEN
   Quote Currency: SOL
 
 💰 Buy Side:
   Amount: 100000000
-  Currency: PUMPTOKEN (Pump Token)
-  Mint: 7CyJ5J3tqRKKJjSWSzASuVJdD2oryAJZfyvbMVJmpump
+  Currency: BONKTOKEN (Bonk Token)
+  Mint: CHNxstQ6zsj9b7QMmCKbnJkhyKwoTL19bPe6VYoebonk
   Decimals: 6
   Account: 8HqR8D9gHtN1eMJyaX7BN5PmzF5z9KgQzY4nXvFfRD8m
   Is Signer: true
   Is Writable: true
-  Order ID: undefined
 
 💸 Sell Side:
   Amount: 500000000
@@ -414,7 +279,6 @@ Instruction Index: 2
   Account: 8HqR8D9gHtN1eMJyaX7BN5PmzF5z9KgQzY4nXvFfRD8m
   Is Signer: true
   Is Writable: true
-  Order ID: undefined
 
 💵 Fee: 0
 👑 Royalty: 0
