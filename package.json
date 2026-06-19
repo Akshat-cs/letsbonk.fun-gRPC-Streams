@@ -8,11 +8,11 @@
     "generate": "protoc --js_out=import_style=commonjs,binary:./generated --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./generated --plugin=protoc-gen-grpc-web=./node_modules/.bin/protoc-gen-grpc-web --proto_path=./solana ./solana/corecast/*.proto ./solana/*.proto"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.9.0",
+    "@grpc/grpc-js": "^1.14.4",
     "@grpc/proto-loader": "^0.7.8",
     "bs58": "^5.0.0",
     "grpc-web": "^1.4.2",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.2.0"
   },
   "devDependencies": {
     "protoc-gen-grpc-web": "^1.4.2"
